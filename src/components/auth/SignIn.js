@@ -37,31 +37,18 @@ const SignIn = (props) => {
   // if(user) return <Redirect to="/" />;
 
   return (
-    // <div
-    //   style={{
-    //     display: "flex",
-    //     flexDirection: "column",
-    //     alignItems: "center",
-    //     justifyContent: "center",
-    //     width: "100%",
-    //     height: "100%",
-    //   }}
-    // >
     <div
       style={{
         width: "100%",
         display: "flex",
         flexDirection: "column",
-        alignItems: "center",
-        padding: "30px",
-        // border: "1px solid lightgrey",
-        backgroundColor: "lightgrey",
-        // boxShadow: "5px 5px 5px grey",
-        // maxWidth: "300px",
-        // borderRadius: "10px",
+        alignItems: "start",
+        padding: "30px 30px 10px 30px",
+        backgroundColor: "#f6f7fb",
+        borderRadius: "0px 0px 10px 10px",
       }}
     >
-      <h2 style={{ marginBottom: "40px" }}>Connexion à votre compte</h2>
+      {/* <h2 style={{ marginBottom: "40px" }}>Connexion à votre compte</h2> */}
       <Button
         variant="outline-primary"
         onClick={() => firebase.login("google")}
@@ -87,7 +74,7 @@ const SignIn = (props) => {
       >
         Se connecter avec Facebook
       </Button>
-      <p style={{ textAlign: "center", margin: "0 0 10px 0" }}>
+      <p style={{ textAlign: "center", margin: "0 0 10px 0", width: "100%" }}>
         ----- ou -----
       </p>
 
@@ -151,7 +138,7 @@ const SignIn = (props) => {
           </p>
         )}
         <Button
-        variant="outline-primary"
+          variant="outline-primary"
           type="submit"
           disabled={isSubmitting}
           style={{
@@ -170,10 +157,11 @@ const SignIn = (props) => {
       <p>
         Vous n'avez pas encore de compte ?{" "}
         {/* <Link to="/signUp">S'inscrire</Link> */}
-        <span style={{ cursor: "pointer" }} onClick={props.handleSubmit}>S'inscrire</span>
+        <span style={{ cursor: "pointer" }} onClick={props.handleSubmit}>
+          S'inscrire
+        </span>
       </p>
     </div>
-    // </div>
   );
 };
 

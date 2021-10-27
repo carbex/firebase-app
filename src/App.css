@@ -1,6 +1,6 @@
 body {
   background-color: #f6f7fb;
 }
-
-
-
+.modal-content{
+  border-radius: 10px;
+}

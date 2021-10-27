@@ -131,7 +131,6 @@ class Firebase {
             email,
             password
           );
-          console.log('user dans la class : ', user)
           if (user) {
             updateProfile(user, {
               displayName: firstName + " " + lastName
@@ -144,6 +143,7 @@ class Firebase {
               lastName,
               email,
               createdAt: Date.now(),
+              online: true
             },
             { merge: true }
           );

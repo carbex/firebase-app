@@ -6,9 +6,9 @@ export const MyAccordion = ({ children, direction, title }) => {
   console.log(direction);
   let style
   if(direction === 'top'){
-    style = {position: "fixed", bottom: "20px", right: "20px"}
+    style = {position: "fixed", bottom: "20px", right: "20px", boxShadow: "2px 2px 5px lightgrey"}
   } else if (direction === "bottom") {
-    style = { marginBottom: '20px', borderRadius: "20px"}
+    style = { marginBottom: '20px', borderRadius: "20px", boxShadow: "2px 2px 5px lightgrey"}
   }
   return (
     <Accordion style={style}>

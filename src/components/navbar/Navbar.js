@@ -4,6 +4,9 @@ import FirebaseContext from "../../contexts/FirebaseContext";
 import { VerticallyCenteredModal } from "../modal/VerticallyCenteredModal";
 import Button from "react-bootstrap/Button";
 import { capitalize } from "../../functions/Functions";
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 function Navbar() {
   const { user, isAuthenticated, firebase } = useContext(FirebaseContext);
@@ -18,16 +21,21 @@ function Navbar() {
 
   return (
     <>
+    <Container fluid style={{boxShadow: "0px 0px 5px grey", marginBottom: "20px", borderBottom: "1px solid lightgrey", backgroundColor: "white"}}>
+      <Row>
+        <Col md={{span: 10, offset: 1}}>
+
       <nav
         style={{
           display: "flex",
           justifyContent: "space-between",
-          border: "1px solid lightgrey",
-          borderRadius: "4px",
-          padding: "20px",
-          marginBottom: "20px",
+          // border: "1px solid lightgrey",
+          // borderRadius: "4px",
+          padding: "20px 0px 20px 0px",
+          // marginBottom: "20px",
           backgroundColor: "white",
           color: "black",
+          // boxShadow: "0px 0px 5px"
         }}
       >
         {/* <div className="d-flex align-items-center">
@@ -47,9 +55,9 @@ function Navbar() {
         </div> */}
         <h2>
           Bienvenue{" "}
-          {isAuthenticated && user.displayName
+          {user !== null && user.displayName
             ? user.displayName.split(" ").map((el) => capitalize(el) + " ")
-            : isAuthenticated && !user.displayName
+            : user !== null && !user.displayName
             ? user.email
             : "internaute"}{" "}
           !
@@ -85,6 +93,9 @@ function Navbar() {
           </div>
         )}
       </nav>
+        </Col>
+      </Row>
+    </Container>
       <VerticallyCenteredModal
         show={modalShow}
         onHide={() => setModalShow(false)}

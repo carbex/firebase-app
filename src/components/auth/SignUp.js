@@ -47,39 +47,24 @@ const SignUp = (props) => {
 
   if (user) return <Redirect to="/" />;
   return (
-    // <div
-    //   style={{
-    //     display: "flex",
-    //     flexDirection: "column",
-    //     alignItems: "center",
-    //     justifyContent: "center",
-    //     width: "100%",
-    //     height: "100vh",
-    //   }}
-    // >
     <div
       style={{
         width: "100%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        padding: "30px",
-        // border: "1px solid lightgrey",
-        backgroundColor: "lightgrey",
-        // boxShadow: "5px 5px 5px grey",
-        // maxWidth: "300px",
-        // borderRadius: "10px",
+        padding: "10px 30px 10px 30px",
+        backgroundColor: "#f6f7fb",
+        borderRadius: "0px 0px 10px 10px",
       }}
     >
-      <h2>Inscription</h2>
+      {/* <h2>Inscription</h2> */}
 
       <div
         style={{
           display: "flex",
           flexDirection: "column",
           width: "100%",
-          marginBottom: "20px",
-          padding: "10px",
         }}
       >
         <form
@@ -263,7 +248,6 @@ const SignUp = (props) => {
         )}
       </div>
     </div>
-    // </div>
   );
 };
 

@@ -39,6 +39,7 @@ function Create() {
         padding: "20px",
         // borderRadius: "10px",
         // border: '1px solid lightgrey'
+        boxShadow: "2px 2px 5px lightgrey"
       }}
     >
       {/* <h4>Poster une citation</h4> */}

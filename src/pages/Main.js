@@ -5,13 +5,18 @@ import Read from "../components/postsCrud/read/Read";
 import Layout from "../components/layout/Layout";
 import Chat from "../components/chat/Chat";
 import { MyAccordion } from "../components/accordion/MyAccordion";
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 function Main() {
   const { isAuthenticated } = useContext(FirebaseContext);
-  console.log(isAuthenticated)
 
   return (
     <Layout>
+    <Container fluid>
+      <Row>
+        <Col md={{ span: 10, offset: 1 }}>
       {isAuthenticated && (
         <MyAccordion direction="bottom" title="Poster une citation">
           <Create />
@@ -23,6 +28,9 @@ function Main() {
           <Chat />
         </MyAccordion>
       )}
+        </Col>
+      </Row>
+    </Container>
     </Layout>
   );
 }

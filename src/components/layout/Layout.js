@@ -4,7 +4,7 @@ import Navbar from "../navbar/Navbar";
 
 function Layout({ children }) {
   return (
-    <main style={{ margin: "40px", position: "relative" }}>
+    <main style={{ position: "relative" }}>
       <Navbar />
       {children}  
     </main>
