@@ -17,7 +17,7 @@ function Navbar() {
     if (isAuthenticated) {
       setModalShow(false);
     }
-  });
+  }, [isAuthenticated]);
 
   return (
     <>
@@ -68,7 +68,7 @@ function Navbar() {
 
             <Button
               variant="outline-primary"
-              onClick={() => firebase.logout()}
+              onClick={() => firebase.logout(user.uid)}
               style={{ cursor: "pointer" }}
             >
               Logout

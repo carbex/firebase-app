@@ -6,6 +6,7 @@ import { doc, setDoc } from "firebase/firestore";
 const useAuth = () => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(firebase.auth, (user) => {
       if (user) {

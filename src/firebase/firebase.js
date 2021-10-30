@@ -20,7 +20,14 @@ import {
   update,
   remove,
 } from "firebase/database";
-import { getFirestore, collection, setDoc, doc } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  setDoc,
+  doc,
+  deleteDoc,
+  onSnapshot,
+} from "firebase/firestore";
 
 class Firebase {
   constructor() {
@@ -30,91 +37,49 @@ class Firebase {
     this.database = getDatabase();
     this.googleProvider = new GoogleAuthProvider();
     this.facebookProvider = new FacebookAuthProvider();
+    this.uid = "";
   }
 
-  ref = (collection) => {
-    return ref(this.database, collection);
-  };
+  // FIRESTORE DATABASE /////////////////////////////////////////
 
-  getDatabase = () => {
-    return this.database;
-  };
-  // DATABASE
+  addMessage = async (message, userUid) =>
+    await setDoc(doc(collection(this.db, "messages"), userUid), message);
+
+  getMessage = (handleSnapshot) =>
+    onSnapshot(collection(this.db, "messages"), handleSnapshot);
+
+  deleteMessage = async (userUid) =>
+    await deleteDoc(doc(this.db, "messages", userUid));
+
+  // REALTIME DATABASE //////////////////////////////////////////
   // Create data
-  createPosts = (item, collection) => {
-    try {
-      const postRef = ref(this.database, collection);
-      const newPostRef = push(postRef);
-      set(newPostRef, item);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  addPost = (collection, item) =>
+    set(push(ref(this.database, collection)), item);
+
   // Read data
-  readPosts = (collection) => {
-    return new Promise((resolve, reject) => {
-      const postsRef = ref(this.database, collection);
-      let posts = [];
-      onValue(postsRef, (snapshot) => {
-        let previousList = snapshot.val();
-        for (let id in previousList) {
-          posts.push({ id, ...previousList[id] });
-        }
-      });
-      console.log("posts dans la class => ", posts);
-      // Succeed half of the time.
-      if (posts) {
-        resolve(posts);
-      } else {
-        reject("FAILURE");
-      }
-    });
-    // try {
-    //   const postsRef = ref(this.database, collection);
-    //   return onValue(postsRef, (snapshot) => {
-    //     let posts = [];
-    //     let previousList = snapshot.val();
-    //     for (let id in previousList) {
-    //       posts.push({ id, ...previousList[id] });
-    //     }
-    //     console.log('posts dans la class firebase => ', posts)
-    //     return posts
-    //   });
-    // } catch (error) {
-    //   console.log(error);
-    // }
-  };
+  getPost = (collection, handleSnapshot) =>
+    onValue(ref(this.database, collection), handleSnapshot);
+
   // Update data
-  updatePost = (item, authorUpdate, textUpdate, collection) => {
-    try {
-      const postRef = ref(this.database, collection);
-      const post = child(postRef, item.id);
-      if (authorUpdate !== null) {
-        update(post, {
-          author: authorUpdate,
-        });
-      }
-      if (textUpdate !== null) {
-        update(post, {
-          text: textUpdate,
-        });
-      }
-    } catch (error) {
-      console.log(error);
+  updatePost = (collection, item, authorUpdate, textUpdate ) => {
+    const post = child(ref(this.database, collection), item.id);
+    if (authorUpdate !== null) {
+      update(post, {
+        author: authorUpdate,
+      });
     }
-  };
-  // Delete post
-  deletePost = (item, collection) => {
-    try {
-      const postRef = ref(this.database, collection);
-      const post = child(postRef, item.id);
-      remove(post);
-    } catch (error) {
-      console.log(error);
+    if (textUpdate !== null) {
+      update(post, {
+        text: textUpdate,
+      });
     }
   };
 
-  // AUTHENTICATION
+  // Delete post
+  deletePost = (collection, item) =>
+    remove(child(ref(this.database, collection), item.id));
+
+  // AUTHENTICATION ////////////////////////////////
   // Email sign-up
   emailInscription = async (
     firstName,
@@ -133,7 +98,7 @@ class Firebase {
           );
           if (user) {
             updateProfile(user, {
-              displayName: firstName + " " + lastName
+              displayName: firstName + " " + lastName,
             });
           }
           await setDoc(
@@ -143,7 +108,8 @@ class Firebase {
               lastName,
               email,
               createdAt: Date.now(),
-              online: true
+              online: true,
+              type: 1,
             },
             { merge: true }
           );
@@ -198,7 +164,6 @@ class Firebase {
         this.auth,
         this[`${provider}Provider`]
       );
-      console.log(user);
       await setDoc(
         doc(collection(this.db, "users"), user.uid),
         {
@@ -206,9 +171,11 @@ class Firebase {
           lastName: user.displayName.split(" ")[1],
           email: user.email,
           createdAt: user.metadata.createdAt,
+          online: true,
         },
         { merge: true }
       );
+      this.uid = user.uid;
     } catch (error) {
       var errorCode = error.code;
       var errorMessage = error.message;
@@ -227,8 +194,13 @@ class Firebase {
   };
 
   // Logout
-  logout = async () => {
-    await signOut(this.auth);
+  logout = async (userUid) => {
+    try {
+      this.deleteMessage(userUid);
+      await signOut(this.auth);
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
 const firebase = new Firebase();

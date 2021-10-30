@@ -1,53 +1,27 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
 import FirebaseContext from "../../contexts/FirebaseContext";
-
-import {
-  collection,
-  setDoc,
-  doc,
-  onSnapshot,
-  deleteDoc,
-} from "firebase/firestore";
+import useMessage from "../../hooks/useMessage";
 
 const Chat = () => {
   const { user, firebase } = useContext(FirebaseContext);
   const [userMessage, setUserMessage] = useState("");
-  const [messages, setMessages] = useState([]);
-  const messageRef = collection(firebase.db, "messages");
+  const messages = useMessage();
   const dummy = useRef();
 
   useEffect(() => {
     dummy.current.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  useEffect(() => {
-    const getAllMessages = onSnapshot(messageRef, (doc) => {
-      let tempMessages = [];
-      doc.docChanges().forEach((change) => {
-        if (change.type === "added" || change.type === "modified") {
-          tempMessages.push(change.doc.data());
-        }
-      });
-      setMessages((prevState) => [...prevState, ...tempMessages]);
-    });
-
-    return () => {
-      getAllMessages();
-      if (user !== null) {
-        deleteDoc(doc(firebase.db, "messages", user.uid));
-      }
-    };
-  }, []);
-
-  const handleSendMessage = async (e) => {
+  const handleSendMessage = (e) => {
     e.preventDefault();
     if (userMessage) {
-      await setDoc(doc(messageRef, user.uid), {
+      const message = {
         sender: user.uid,
         senderName: user.displayName,
         message: userMessage,
         createdAt: Date.now(),
-      });
+      };
+      firebase.addMessage(message, user.uid);
       setUserMessage("");
     }
   };

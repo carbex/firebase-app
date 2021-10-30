@@ -15,8 +15,7 @@ function Create() {
         text,
         uid: user.uid,
       };
-      const collection = "posts";
-      await firebase.createPosts(item, collection);
+      await firebase.addPost('posts', item);
       setAuthor("");
       setText("");
     } else {
@@ -34,15 +33,11 @@ function Create() {
         display: "flex",
         flexDirection: "column",
         alignItems: "start",
-        // marginBottom: "20px",
         backgroundColor: "white",
         padding: "20px",
-        // borderRadius: "10px",
-        // border: '1px solid lightgrey'
         boxShadow: "2px 2px 5px lightgrey"
       }}
     >
-      {/* <h4>Poster une citation</h4> */}
       <input
         style={{ marginBottom: "10px" }}
         type="text"

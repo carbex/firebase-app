@@ -3,7 +3,6 @@ import Accordion from "react-bootstrap/Accordion";
 import '../../App.css'
 
 export const MyAccordion = ({ children, direction, title }) => {
-  console.log(direction);
   let style
   if(direction === 'top'){
     style = {position: "fixed", bottom: "20px", right: "20px", boxShadow: "2px 2px 5px lightgrey"}

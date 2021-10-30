@@ -1,23 +1,25 @@
 import { useState, useEffect } from "react";
 import firebase from "../firebase";
-import { onSnapshot } from "firebase/firestore";
 
-const useMessage = ({ query }) => {
-
+const useMessage = () => {
   const [messages, setMessages] = useState([]);
 
-  useEffect(() => {
-    const unsubscribe = onSnapshot(query, (querySnapshot) => {
-      const messages = [];
-      querySnapshot.forEach((doc) => {
-        messages.push(doc.data().idField);
-      });
-      setMessages(messages);
+  const handleSnapshot = (snapshot) => {
+    let tempMessages = [];
+    snapshot.docChanges().forEach((change) => {
+      if (change.type === "added" || change.type === "modified") {
+        tempMessages.push(change.doc.data());
+      }
     });
-    return () => unsubscribe();
-  });
+    setMessages((prevState) => [...prevState, ...tempMessages]);
+  };
 
-  console.log('messages dans le useMessage => ', messages)
+  useEffect(() => {
+    const getAllMessages = firebase.getMessage(handleSnapshot);
+    return () => {
+      getAllMessages();
+    };
+  }, []);
 
   return messages;
 };

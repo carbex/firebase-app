@@ -10,17 +10,16 @@ function UpdateDelete({ post }) {
   const [textUpdate, setTextUpdate] = useState(null);
 
   const handleUpdate = async () => {
-    const collection = "posts";
-    await firebase.updatePost(post, authorUpdate, textUpdate, collection);
+    await firebase.updatePost("posts", post, authorUpdate, textUpdate);
     setUpdate(false);
   };
 
   const handleDelete = async () => {
     const collection = "posts";
-    await firebase.deletePost(post, collection);
+    await firebase.deletePost(collection, post);
   };
 
-  const authorCheck = () => user !== null && user.uid === post.uid;
+  const authorCheck = () => (user !== null && (user.uid === post.uid || user.type === 0));
 
   return (
     <div className="col col-12 col-md-6 col-xl-4 mb-4">
