@@ -11,7 +11,6 @@ const useAuth = () => {
     const unsubscribe = onAuthStateChanged(firebase.auth, (user) => {
       if (user) {
         const email = user.email;
-        const name = user.displayName;
 
         const userRef = doc(firebase.db, "users", user.uid);
         setDoc(userRef, { email }, { merge: true });

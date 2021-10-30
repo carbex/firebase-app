@@ -1,23 +1,14 @@
-import "./App.css";
 import firebase from "./firebase";
-import FirebaseContext from './contexts/FirebaseContext'
+import FirebaseContext from "./contexts/FirebaseContext";
 import useAuth from "./hooks/useAuth";
 import SignIn from "./components/auth/SignIn";
 import SignUp from "./components/auth/SignUp";
-import Pokemon from "./components/pokemon/Pokemon"
-import Main from "./pages/Main"
+import Pokemon from "./components/pokemon/Pokemon";
+import Main from "./pages/Main";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import ChatRoom from "./pages/ChatRoom";
 
 function App() {
-
-  const { user , isAuthenticated } = useAuth();
-
-  // SIGNIN ANONYMOUSLY
-  // useEffect(() => {
-  //   const anonymous = signInAnonymously(firebase.auth)
-  //   return () => anonymous();
-  // }, []);
+  const { user, isAuthenticated } = useAuth();
 
   return (
     <FirebaseContext.Provider value={{ user, isAuthenticated, firebase }}>
@@ -27,7 +18,6 @@ function App() {
           <Route path="/signIn" component={SignIn} />
           <Route path="/signUp" component={SignUp} />
           <Route path="/pokemon" component={Pokemon} />
-          <Route path="/chat" component={ChatRoom} />
         </Switch>
       </Router>
     </FirebaseContext.Provider>

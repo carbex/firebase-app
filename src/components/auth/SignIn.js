@@ -1,9 +1,9 @@
 import FirebaseContext from "../../contexts/FirebaseContext";
 import { useState, useContext } from "react";
-import { Link, Redirect } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { AiOutlineEye, AiFillEye } from "react-icons/ai";
 import Button from "react-bootstrap/Button";
+import { Redirect } from 'react-router-dom'
 
 const SignIn = (props) => {
   const [inputType, setInputType] = useState("password");
@@ -11,11 +11,11 @@ const SignIn = (props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting, isSubmitSuccessful },
+    formState: { errors, isSubmitting },
     setError,
     clearErrors,
   } = useForm({
-    mode: "onTouched",
+    mode: "onSubmit",
   });
 
   const onSubmit = async (data) => {
@@ -33,9 +33,7 @@ const SignIn = (props) => {
       };
     }
   };
-
-  // if(user) return <Redirect to="/" />;
-
+  if (user) return <Redirect to="/" />;
   return (
     <div
       style={{
@@ -48,7 +46,6 @@ const SignIn = (props) => {
         borderRadius: "0px 0px 10px 10px",
       }}
     >
-      {/* <h2 style={{ marginBottom: "40px" }}>Connexion à votre compte</h2> */}
       <Button
         variant="outline-primary"
         onClick={() => firebase.login("google")}
@@ -156,7 +153,6 @@ const SignIn = (props) => {
       )}
       <p>
         Vous n'avez pas encore de compte ?{" "}
-        {/* <Link to="/signUp">S'inscrire</Link> */}
         <span style={{ cursor: "pointer" }} onClick={props.handleSubmit}>
           S'inscrire
         </span>

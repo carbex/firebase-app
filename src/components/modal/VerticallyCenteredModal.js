@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
 import SignIn from "../auth/SignIn";
 import SignUp from "../auth/SignUp";
 import "../../App.css";

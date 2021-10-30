@@ -88,7 +88,7 @@ function Navbar() {
               variant="outline-primary"
               onClick={() => setModalShow(true)}
             >
-              SignIn
+              Sign Up / Log in
             </Button>
           </div>
         )}

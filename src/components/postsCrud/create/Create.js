@@ -1,9 +1,10 @@
 import React, { useState, useContext } from "react";
 import FirebaseContext from "../../../contexts/FirebaseContext";
 import Button from "react-bootstrap/Button";
+import MDEditor from "@uiw/react-md-editor";
 
 function Create() {
-  const { user,  firebase } = useContext(FirebaseContext);
+  const { user, firebase } = useContext(FirebaseContext);
   const [author, setAuthor] = useState("");
   const [text, setText] = useState("");
   const [message, setMessage] = useState("");
@@ -14,8 +15,9 @@ function Create() {
         author,
         text,
         uid: user.uid,
+        createdAt: Date.now(),
       };
-      await firebase.addPost('posts', item);
+      await firebase.addPost("posts", item);
       setAuthor("");
       setText("");
     } else {
@@ -35,7 +37,7 @@ function Create() {
         alignItems: "start",
         backgroundColor: "white",
         padding: "20px",
-        boxShadow: "2px 2px 5px lightgrey"
+        boxShadow: "2px 2px 5px lightgrey",
       }}
     >
       <input
@@ -45,12 +47,9 @@ function Create() {
         value={author}
         onChange={(e) => setAuthor(e.target.value)}
       />
-      <textarea
-        style={{ width: "100%", padding: "5px", marginBottom: "10px" }}
-        placeholder="Citation*"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-      />
+      <div className="container p-0 mt-3 mb-4">
+        <MDEditor value={text} onChange={setText} />
+      </div>
       <div
         style={{
           display: "flex",

@@ -66,11 +66,13 @@ class Firebase {
     if (authorUpdate !== null) {
       update(post, {
         author: authorUpdate,
+        updatedAt: Date.now()
       });
     }
     if (textUpdate !== null) {
       update(post, {
         text: textUpdate,
+        updatedAt: Date.now()
       });
     }
   };

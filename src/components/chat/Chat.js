@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
 import FirebaseContext from "../../contexts/FirebaseContext";
 import useMessage from "../../hooks/useMessage";
+import { AiOutlineEye, AiFillEye, AiOutlineSend} from "react-icons/ai";
 
 const Chat = () => {
   const { user, firebase } = useContext(FirebaseContext);
@@ -90,7 +91,8 @@ const Chat = () => {
                 onClick={handleSendMessage}
                 className=" btn btn-primary mt-1 ms-1"
               >
-                Envoyer
+              <AiOutlineSend/>
+                {/* Envoyer */}
               </button>
             </div>
           </form>

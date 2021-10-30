@@ -1,6 +1,5 @@
 import FirebaseContext from "../../contexts/FirebaseContext";
 import { useState, useContext } from "react";
-import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { AiOutlineEye, AiFillEye } from "react-icons/ai";
 import { Redirect } from "react-router-dom";
@@ -16,11 +15,11 @@ const SignUp = (props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting, isSubmitSuccessful },
+    formState: { errors, isSubmitting },
     setError,
     clearErrors,
   } = useForm({
-    mode: "onTouched",
+    mode: "onSubmit",
   });
 
   const onSubmit = async (data) => {
@@ -58,8 +57,6 @@ const SignUp = (props) => {
         borderRadius: "0px 0px 10px 10px",
       }}
     >
-      {/* <h2>Inscription</h2> */}
-
       <div
         style={{
           display: "flex",
@@ -95,7 +92,7 @@ const SignUp = (props) => {
             type="text"
             placeholder="Votre nom *"
             {...register("lastName", {
-              required: "Veuillez saisir votre prénom.",
+              required: "Veuillez saisir votre nom.",
             })}
           />
           {errors.lastName && (
@@ -112,7 +109,7 @@ const SignUp = (props) => {
               required: "Veuillez saisir votre email.",
               pattern: {
                 value:
-                  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                 message: "L'email n'est pas formaté correctement",
               },
             })}
