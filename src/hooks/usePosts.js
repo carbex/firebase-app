@@ -14,10 +14,8 @@ const usePosts = () => {
   };
 
   useEffect(() => {
-    const readAllPosts = () => {
-      firebase.getPost("posts", handleSnapshot);
-    };
-    readAllPosts();
+    const readAllPosts = firebase.getPost("posts", handleSnapshot);
+    return () => readAllPosts();
   }, []);
 
   return posts;

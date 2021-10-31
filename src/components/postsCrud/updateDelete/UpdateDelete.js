@@ -13,7 +13,7 @@ function UpdateDelete({ post }) {
             flexDirection: "column",
             alignItems: "start",
             justifyContent: "space-between",
-            marginBottom: "20px",
+            // marginBottom: "20px",
             padding: "20px",
             border: "1px solid lightgrey",
             color: "black",
@@ -24,16 +24,16 @@ function UpdateDelete({ post }) {
           }}
         >
           <div style={{ width: "100%" }}>
-            <MDEditor.Markdown
-              source={post.text}
-              style={{ marginBottom: "20px" }}
-            />
-            <h5>
+            <h5 style={{borderBottom: "1px solid lightgrey"}}>
               {post.author
                 .split(" ")
                 .map((el) => capitalize(el))
                 .join(" ")}
             </h5>
+            <MDEditor.Markdown
+              source={post.text}
+              style={{ marginBottom: "20px" }}
+            />
           </div>
         </div>
       </Link>

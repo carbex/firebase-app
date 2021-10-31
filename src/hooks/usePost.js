@@ -3,21 +3,20 @@ import firebase from "../firebase";
 
 export const usePost = (postId) => {
   const [post, setPost] = useState({
-      author: '',
-      text: '',
-      uid: ''
+    author: "",
+    text: "",
+    uid: "",
   });
 
   useEffect(() => {
     const readOnePost = firebase.getPost(`posts/${postId}`, (snapshot) => {
-        if (snapshot) {
-          const post = {id: postId, ...snapshot.val()};
-          setPost(post);
-        } else {
-          console.log("No data available");
-        }
-      });
-
+      if (snapshot) {
+        const post = { id: postId, ...snapshot.val() };
+        setPost(post);
+      } else {
+        console.log("No data available");
+      }
+    });
     return () => readOnePost();
   }, [postId]);
 
