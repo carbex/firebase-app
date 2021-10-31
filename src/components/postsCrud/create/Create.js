@@ -47,7 +47,7 @@ function Create() {
         value={author}
         onChange={(e) => setAuthor(e.target.value)}
       />
-      <div className="container p-0 mt-3 mb-4">
+      <div className="container-fluid p-0 mt-3 mb-4">
         <MDEditor value={text} onChange={setText} />
       </div>
       <div

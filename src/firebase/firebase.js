@@ -57,7 +57,7 @@ class Firebase {
     set(push(ref(this.database, collection)), item);
 
   // Read data
-  getPost = (collection, handleSnapshot) =>
+  getPost = (collection, handleSnapshot) => 
     onValue(ref(this.database, collection), handleSnapshot);
 
   // Update data
@@ -78,7 +78,7 @@ class Firebase {
   };
 
   // Delete post
-  deletePost = (collection, item) =>
+  deletePost = (collection, item) => 
     remove(child(ref(this.database, collection), item.id));
 
   // AUTHENTICATION ////////////////////////////////

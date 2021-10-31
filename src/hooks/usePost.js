@@ -1,26 +1,25 @@
 import { useState, useEffect } from "react";
 import firebase from "../firebase";
 
-const usePosts = () => {
-  const [posts, setPosts] = useState([]);
-
-  const handleSnapshot = (snapshot) => {
-    let postsTemp = [];
-    let previousList = snapshot.val();
-    for (let id in previousList) {
-      postsTemp.push({ id, ...previousList[id] });
-    }
-    setPosts(postsTemp);
-  };
+export const usePost = (postId) => {
+  const [post, setPost] = useState({
+      author: '',
+      text: '',
+      uid: ''
+  });
 
   useEffect(() => {
-    const readAllPosts = () => {
-      firebase.getPost("posts", handleSnapshot);
-    };
-    readAllPosts();
-  }, []);
+    const readOnePost = firebase.getPost(`posts/${postId}`, (snapshot) => {
+        if (snapshot) {
+          const post = {id: postId, ...snapshot.val()};
+          setPost(post);
+        } else {
+          console.log("No data available");
+        }
+      });
 
-  return posts;
+    return () => readOnePost();
+  }, [postId]);
+
+  return post;
 };
-
-export default usePosts;

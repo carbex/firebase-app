@@ -4,8 +4,10 @@ import useAuth from "./hooks/useAuth";
 import SignIn from "./components/auth/SignIn";
 import SignUp from "./components/auth/SignUp";
 import Pokemon from "./components/pokemon/Pokemon";
-import Main from "./pages/Main";
+import PostsPage from "./pages/PostsPage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+// import Post from "./components/post/Post";
+import PostPage from "./pages/PostPage";
 
 function App() {
   const { user, isAuthenticated } = useAuth();
@@ -14,7 +16,9 @@ function App() {
     <FirebaseContext.Provider value={{ user, isAuthenticated, firebase }}>
       <Router>
         <Switch>
-          <Route path="/" exact component={Main} />
+          <Route path="/" exact component={PostsPage} />
+          <Route path="/posts" exact component={PostsPage} />
+          <Route path="/posts/:postId" component={PostPage} />
           <Route path="/signIn" component={SignIn} />
           <Route path="/signUp" component={SignUp} />
           <Route path="/pokemon" component={Pokemon} />
