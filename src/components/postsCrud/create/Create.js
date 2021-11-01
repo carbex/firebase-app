@@ -1,9 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import FirebaseContext from "../../../contexts/FirebaseContext";
 import Button from "react-bootstrap/Button";
 import MDEditor from "@uiw/react-md-editor";
 
+
 function Create() {
+
   const { user, firebase } = useContext(FirebaseContext);
   const [author, setAuthor] = useState("");
   const [text, setText] = useState("");

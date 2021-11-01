@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import firebase from "../firebase";
 
-const useMessage = () => {
+const useReadAllMessages = () => {
   const [messages, setMessages] = useState([]);
 
   const handleSnapshot = (snapshot) => {
@@ -24,4 +24,4 @@ const useMessage = () => {
   return messages;
 };
 
-export default useMessage;
+export default useReadAllMessages;

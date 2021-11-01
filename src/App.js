@@ -6,7 +6,6 @@ import SignUp from "./components/auth/SignUp";
 import Pokemon from "./components/pokemon/Pokemon";
 import PostsPage from "./pages/PostsPage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-// import Post from "./components/post/Post";
 import PostPage from "./pages/PostPage";
 
 function App() {

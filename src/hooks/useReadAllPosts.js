@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import firebase from "../firebase";
 
-const usePosts = () => {
+const useReadAllPosts = () => {
   const [posts, setPosts] = useState([]);
 
   const handleSnapshot = (snapshot) => {
@@ -21,4 +21,4 @@ const usePosts = () => {
   return posts;
 };
 
-export default usePosts;
+export default useReadAllPosts;

@@ -2,13 +2,13 @@ import { useParams, Redirect } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import MDEditor from "@uiw/react-md-editor";
 import { capitalize } from "../../functions/Functions";
-import { usePost } from "../../hooks/usePost";
+import { useReadOnePost } from "../../hooks/useReadOnePost";
 import { useState, useEffect, useContext } from "react";
 import FirebaseContext from "../../contexts/FirebaseContext";
 
 const Post = () => {
   const { postId } = useParams();
-  const post = usePost(postId);
+  const post = useReadOnePost(postId);
   const { user, firebase } = useContext(FirebaseContext);
   const [isDeleted, setIsDeleted] = useState(false);
   const [update, setUpdate] = useState(false);
@@ -65,13 +65,13 @@ const Post = () => {
                       borderBottom: "1px solid lightgrey",
                     }}
                   >
-                    <h2>
+                    <h1>
                       {post.author &&
                         post.author
                           .split(" ")
                           .map((el) => capitalize(el))
                           .join(" ")}
-                    </h2>
+                    </h1>
                     <div className="d-flex" style={{ fontSize: "10px" }}>
                       <span style={{ marginRight: "20px" }}>
                         Posté le {new Date(post.createdAt).toLocaleDateString()}

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import firebase from "../firebase";
 
-export const usePost = (postId) => {
+export const useReadOnePost = (postId) => {
   const [post, setPost] = useState({
     author: "",
     text: "",

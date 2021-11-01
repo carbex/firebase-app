@@ -1,8 +1,8 @@
 import UpdateDelete from "../updateDelete/UpdateDelete";
-import usePosts from "../../../hooks/usePosts";
+import useReadAllPosts from "../../../hooks/useReadAllPosts";
 
 const Read = () => {
-  const posts = usePosts();
+  const posts = useReadAllPosts();
 
   return (
     <div className="container-fluid p-0">

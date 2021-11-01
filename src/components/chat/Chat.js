@@ -1,31 +1,19 @@
-import React, { useState, useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import FirebaseContext from "../../contexts/FirebaseContext";
-import useMessage from "../../hooks/useMessage";
-import { AiOutlineEye, AiFillEye, AiOutlineSend} from "react-icons/ai";
+import useReadAllMessages from "../../hooks/useReadAllMessages";
+import { AiOutlineSend } from "react-icons/ai";
+import useAddMessage from "../../hooks/useAddMessage";
 
 const Chat = () => {
-  const { user, firebase } = useContext(FirebaseContext);
-  const [userMessage, setUserMessage] = useState("");
-  const messages = useMessage();
+  const { user } = useContext(FirebaseContext);
+  const { userMessage, inputBind, messageBind } = useAddMessage("");
+  const messages = useReadAllMessages();
+
   const dummy = useRef();
 
   useEffect(() => {
     dummy.current.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
-
-  const handleSendMessage = (e) => {
-    e.preventDefault();
-    if (userMessage) {
-      const message = {
-        sender: user.uid,
-        senderName: user.displayName,
-        message: userMessage,
-        createdAt: Date.now(),
-      };
-      firebase.addMessage(message, user.uid);
-      setUserMessage("");
-    }
-  };
 
   return (
     <div className="d-flex justify-content-center align-items-center">
@@ -84,15 +72,11 @@ const Chat = () => {
               placeholder="Ecrire un message"
               rows={1}
               value={userMessage}
-              onChange={(e) => setUserMessage(e.target.value)}
+              {...inputBind}
             ></textarea>
             <div>
-              <button
-                onClick={handleSendMessage}
-                className=" btn btn-primary mt-1 ms-1"
-              >
-              <AiOutlineSend/>
-                {/* Envoyer */}
+              <button {...messageBind} className=" btn btn-primary mt-1 ms-1">
+                <AiOutlineSend />
               </button>
             </div>
           </form>
